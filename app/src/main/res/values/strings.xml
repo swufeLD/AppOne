@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AppOne</string>
+    <string name="welcome">welcom</string>
+    <string name="birth">happy-birghday</string>
+    <string name="people">From Tom</string>
+    <string name="result">The result is：</string>
+    <string name="btn">transfer</string>
+    <string name="theme">TeamA</string>
+    <string name="btn1">+3 POINTS</string>
+    <string name="btn2">+2 POINTS</string>
+    <string name="btn3">+1 POINTS</string>
+</resources>

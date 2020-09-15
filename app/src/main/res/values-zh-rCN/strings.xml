@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">第一个APPP</string>
+    <string name="welcome">欢迎</string>
+    <string name="birth">生日快乐</string>
+    <string name="people">来自TOM</string>
+    <string name="result">结果为：</string>
+    <string name="btn">转为华氏温度</string>
+    <string name="theme">TeamA</string>
+    <string name="btn1">加3分</string>
+    <string name="btn2">加2分</string>
+    <string name="btn3">加1分</string>
+</resources>
