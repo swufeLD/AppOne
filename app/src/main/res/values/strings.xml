@@ -9,4 +9,20 @@
     <string name="btn1">+3 POINTS</string>
     <string name="btn2">+2 POINTS</string>
     <string name="btn3">+1 POINTS</string>
+    <string name="btn4">reset</string>
+
+    <string name="text1">TeamA</string>
+    <string name="b1">+3 POINTS</string>
+    <string name="b2">+2 POINTS</string>
+    <string name="b3">+1 POINTS</string>
+    <string name="text2">TeamB</string>
+    <string name="b4">+3 POINTS</string>
+    <string name="b5">+2 POINTS</string>
+    <string name="b6">+1 POINTS</string>
+    <string name="b7">convert</string>
+
+    <string name="dollar">dollar</string>
+    <string name="euro">euro</string>
+    <string name="won">won</string>
+    <string name="msg">请输入正确的金额，不能为空</string>
 </resources>

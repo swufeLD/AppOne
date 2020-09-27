@@ -10,4 +10,18 @@
     <string name="btn1">加3分</string>
     <string name="btn2">加2分</string>
     <string name="btn3">加1分</string>
+    <string name="btn4">清0</string>
+    <string name="text1">TeamA</string>
+    <string name="b1">加3分</string>
+    <string name="b2">加2分</string>
+    <string name="b3">加1分</string>
+    <string name="text2">TeamB</string>
+    <string name="b4">加3分</string>
+    <string name="b5">加2分</string>
+    <string name="b6">加1分</string>
+    <string name="b7">传参</string>
+    <string name="dollar">美元</string>
+    <string name="euro">欧元</string>
+    <string name="won">韩元</string>
+    <string name="msg">请输入正确的金额，不能为空</string>
 </resources>
