@@ -1,6 +1,8 @@
 package com.example.appone;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +51,15 @@ public class getRate extends AppCompatActivity implements View.OnClickListener{
         bdl.putFloat("key_dollar",newDollar);
         bdl.putFloat("key_euro",newEuro);
         bdl.putFloat("key_won",newWon);
+
+        SharedPreferences share=getSharedPreferences("myrate", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor=share.edit();
+
+        editor.putFloat("dollar_rate", (float) newDollar);
+        editor.putFloat("euro_rate", (float) newEuro);
+        editor.putFloat("won_rate", (float) newWon);
+        editor.apply();
+
         intent.putExtras(bdl);
         setResult(2,intent);
         finish();

@@ -25,4 +25,5 @@
     <string name="euro">euro</string>
     <string name="won">won</string>
     <string name="msg">请输入正确的金额，不能为空</string>
+    <string name="http">http://www.usd-cny.com/bankofchina.htm</string>
 </resources>
