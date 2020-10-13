@@ -1,14 +1,12 @@
 package com.example.appone;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,14 +23,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MyListActivity extends AppCompatActivity implements  Runnable, AdapterView.OnItemClickListener {
-    private static final String TAG = "MyListActivity";
+public class DeleteList extends AppCompatActivity implements Runnable, AdapterView.OnItemClickListener {
+    private static final String TAG = "DeleteList";
 
     Handler handler;
     List<HashMap<String, String>> listItems;
     List<HashMap<String, String>> listData;
-    ListView listView;
-    @Override
+    GridView gridView;
+    MyAdapter myAdapter;
+
     public void run() {
         String url2 = "http://www.usd-cny.com/bankofchina.htm";
         Document doc = null;
@@ -63,7 +62,7 @@ public class MyListActivity extends AppCompatActivity implements  Runnable, Adap
             Log.i(TAG, "run: " + str1+ "==>" + val);
             listData.add(map);
 
-            }
+        }
 
 
         Message msg = handler.obtainMessage(4);
@@ -73,14 +72,14 @@ public class MyListActivity extends AppCompatActivity implements  Runnable, Adap
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_list_layout);
+        setContentView(R.layout.list_grid);
 
-        listView =  findViewById(R.id.mylist);
-        listView.setOnItemClickListener(this);
+        gridView =  findViewById(R.id.gridview);
+        gridView.setOnItemClickListener(this);
 
         listItems = new ArrayList<HashMap<String, String>>();
 
-        Thread t = new Thread(MyListActivity.this);
+        Thread t = new Thread(DeleteList.this);
         t.start();
 
         handler = new Handler() {
@@ -88,10 +87,10 @@ public class MyListActivity extends AppCompatActivity implements  Runnable, Adap
             public void handleMessage(Message msg) {
                 if (msg.what == 4) {
                     listData = (ArrayList<HashMap<String, String>>) msg.obj;
-                    MyAdapter myAdapter = new MyAdapter(MyListActivity.this,
+                    myAdapter = new MyAdapter(DeleteList.this,
                             R.layout.list_item,
                             (ArrayList<HashMap<String, String>>) listData);
-                    listView.setAdapter(myAdapter);
+                    gridView.setAdapter(myAdapter);
                 }
                 super.handleMessage(msg);
             }
@@ -112,31 +111,14 @@ public class MyListActivity extends AppCompatActivity implements  Runnable, Adap
         }
         return out.toString();
     }
-
     @Override
-    public void onItemClick(AdapterView<?> parent, View view,
-                            int position, long id) {
-      /*  Object itemAtPosition = listView.getItemAtPosition(position);
-        HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
-        String titleStr = map.get("ItemTitle");
-        String detailStr = map.get("ItemDetail");
-        Log.i(TAG, "onItemClick: titleStr=" + titleStr);
-        Log.i(TAG, "onItemClick: detailStr=" + detailStr);
-        TextView title = (TextView) view.findViewById(R.id.itemTitle);
-        TextView detail = (TextView) view.findViewById(R.id.itemDetail);
-        String title2 = String.valueOf(title.getText());
-        String detail2 = String.valueOf(detail.getText());
-        Log.i(TAG, "onItemClick: title2=" + title2);
-        Log.i(TAG, "onItemClick:detail2=" + detail2);*/
-        Intent intent =new Intent(this,ShowRate.class);
-        Bundle bdl= new Bundle();
-        TextView title = (TextView) view.findViewById(R.id.itemTitle);
-        TextView detail = (TextView) view.findViewById(R.id.itemDetail);
-        String title2 = String.valueOf(title.getText());
-        String detail2 = String.valueOf(detail.getText());
-        bdl.putString("title",title2);
-        bdl.putString("detail",detail2);
-        intent.putExtras(bdl);
-        startActivity(intent);
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                     Log.i(TAG, "onItemClick: "+ gridView.getItemAtPosition(position));
+                     myAdapter.remove(gridView.getItemAtPosition(position));
+                     myAdapter.notifyDataSetChanged();
+                     Log.i(TAG, "onItemClick: "+position);
+                     if(myAdapter.isEmpty()){
+                         gridView.setEmptyView(findViewById(R.id.nodata));
+        }
     }
 }
