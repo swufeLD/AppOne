@@ -79,7 +79,7 @@ public class exchange extends AppCompatActivity implements View.OnClickListener 
             Log.i(TAG, "onClick: won_rate"+won_rate);
         }
 
-        saveInfo((float) dollar_rate,(float) euro_rate,(float) won_rate);
+        //saveInfo((float) dollar_rate,(float) euro_rate,(float) won_rate);
 
         super.onActivityResult(requestCode, resultCode, data);
     }

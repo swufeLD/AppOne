@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class getRate extends AppCompatActivity implements View.OnClickListener{
     TextView t1;
     TextView t2;
@@ -58,6 +61,11 @@ public class getRate extends AppCompatActivity implements View.OnClickListener{
         editor.putFloat("dollar_rate", (float) newDollar);
         editor.putFloat("euro_rate", (float) newEuro);
         editor.putFloat("won_rate", (float) newWon);
+
+        Date current = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String current_format = format.format(current);
+        editor.putString("update_date",current_format);
         editor.apply();
 
         intent.putExtras(bdl);
