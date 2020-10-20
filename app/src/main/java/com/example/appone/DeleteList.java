@@ -115,7 +115,6 @@ public class DeleteList extends AppCompatActivity implements Runnable, AdapterVi
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                      Log.i(TAG, "onItemClick: "+ gridView.getItemAtPosition(position));
                      myAdapter.remove(gridView.getItemAtPosition(position));
-                     myAdapter.notifyDataSetChanged();
                      Log.i(TAG, "onItemClick: "+position);
                      if(myAdapter.isEmpty()){
                          gridView.setEmptyView(findViewById(R.id.nodata));

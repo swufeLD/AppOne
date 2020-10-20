@@ -22,7 +22,9 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,13 +41,17 @@ public class Main2Activity extends ListActivity implements Runnable {
     SharedPreferences share;
     List<String> list1;
     List<HashMap<String,String>> list2;
+    List<RateItem> rateList;
+    List<RateItem> rateList2;
+    RateManager dbManager;
+    String current_format;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.exchange);
 
         Thread t=new Thread(this);
         t.start();
-
+       dbManager = new RateManager(this);
          // adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list1);
          // setListAdapter(adapter);
 
@@ -53,9 +59,8 @@ public class Main2Activity extends ListActivity implements Runnable {
             public void handleMessage(Message msg){
                 super.handleMessage(msg);
                 if(msg.what==0){
-                    str=(String) msg.obj;
-                    Log.i(TAG, "handleMessage:getMessage "+str);
-
+                    rateList2=(ArrayList<RateItem>)msg.obj;
+                    dbManager.addAll(rateList2);
                 }
 
                /* //解析数据
@@ -99,19 +104,24 @@ public class Main2Activity extends ListActivity implements Runnable {
             String html = inputStream2String(in);
             Log.i(TAG, "onCreate: html="+ html);
 
-            Message msg=handle.obtainMessage(0);
+          /*  Message msg=handle.obtainMessage(0);
             msg.obj=html;
-            handle.sendMessage(msg);
+            handle.sendMessage(msg);*/
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //设置时间格式
+        Date current = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        current_format = format.format(current);
 
         //解析数据
         share=getSharedPreferences("AllRate", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor=share.edit();
         list1 = new ArrayList<String>();
         list2= new ArrayList<HashMap<String, String>>();
+        rateList= new ArrayList<RateItem>();
 
         Intent get=new Intent(this,RateListActivity.class);
         Bundle bdl=new Bundle();
@@ -143,10 +153,13 @@ public class Main2Activity extends ListActivity implements Runnable {
 
             Log.i(TAG, "getDate: "+str1+"==>"+val);
             String data=str1+"==>"+val ;
-            editor.putString(str1,data);
+            editor.putString(str1,val);
             list1.add(data);
             bdl.putString(String.valueOf(f),data);
             f++;
+           //将数据添加到数组
+            RateItem rateItem = new RateItem(str1,val);
+            rateList.add(rateItem);
 
            /* HashMap<String,String>map=new HashMap<String,String>();
             map.put(str1,"city"+f2);
@@ -181,11 +194,15 @@ public class Main2Activity extends ListActivity implements Runnable {
             bdl2.putStringArrayList(String.valueOf(f2),list2.get(i));
             f2 ++;
         }*/
-
+        editor.putString("localDate",current_format);
         editor.apply();
         get.putExtras(bdl);
         startActivity(get);
 
+        Message msg=handle.obtainMessage(0);
+        msg.obj=rateList;
+        handle.sendMessage(msg);
+        Log.i("db","添加新记录集");
        /*  Message msg=handle.obtainMessage(1);
          msg.obj=list1;
          handle.sendMessage(msg);*/

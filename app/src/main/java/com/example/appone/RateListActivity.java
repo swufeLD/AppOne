@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RateListActivity extends ListActivity  {
+
+
     protected  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent getRate=getIntent();
-       List<String> list1 = new ArrayList<String>();
+        List<String> list1 = new ArrayList<String>();
         Bundle bundle=getRate.getExtras();
         int f=1;
         for(int i=0;i<bundle.size();i++){
