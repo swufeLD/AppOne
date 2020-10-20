@@ -46,11 +46,11 @@ public class ListDB extends ListActivity implements  Runnable {
             public void handleMessage(Message msg) {
                 if (msg.what == 5) {
                   list=(ArrayList<String>)msg.obj;
+                    ListAdapter adapter = new ArrayAdapter<String>(ListDB.this, android.R.layout.simple_list_item_1, list);
+                    setListAdapter(adapter);
                 }
             }
         };
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-        setListAdapter(adapter);
     }
 
     @Override
@@ -65,6 +65,7 @@ public class ListDB extends ListActivity implements  Runnable {
            RateManager dbManager = new RateManager(this);
             for(RateItem rateItem : dbManager.listAll()){
                 retList.add(rateItem.getCurName() + "=>" + rateItem.getCurRate());
+                Log.i(TAG, "database:" +rateItem.getCurName() + "=>" + rateItem.getCurRate());
             }
         }else{
             Log.i("run","日期不相等，从网络中获取在线数据");

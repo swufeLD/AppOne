@@ -10,7 +10,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private  static final int version=1;
     private  static final String DB_NAME="myrate.db";
     public   static final String TB_NAME="tb_rates";
-    SQLiteDatabase db;
 
     public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -21,8 +20,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        db.execSQL("create table "+TB_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,CURNAME text,CURRATE text)");
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE table "+TB_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,CURNAME text,CURRATE text)");
     }
 
     @Override
