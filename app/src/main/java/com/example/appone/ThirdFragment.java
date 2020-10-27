@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 public class ThirdFragment extends Fragment {
     public ThirdFragment(){
-//ceshidaima22222
+
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.frame_second,container);

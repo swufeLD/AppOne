@@ -17,7 +17,6 @@ public class RateManager {
     }
     public void add(RateItem item ){
         SQLiteDatabase db=dbHelper.getWritableDatabase();
-
         ContentValues values =new ContentValues();
         values.put("curname",item.getCurName());
         values.put("currate",item.getCurRate());
